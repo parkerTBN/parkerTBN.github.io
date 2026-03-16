@@ -2,104 +2,118 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Nguyen Portfolio</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+  <title>Nguyen's Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: Arial, sans-serif;
+      margin: 0;
       background: #0f172a;
       color: #e2e8f0;
-      max-width: 900px;
-      margin: auto;
-      padding: 40px 20px;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px;
     }
 
     h1 {
-      font-size: 32px;
-      margin-bottom: 5px;
+      font-size: 40px;
+      margin-bottom: 10px;
     }
 
     h2 {
+      border-bottom: 2px solid #22c55e;
+      display: inline-block;
       margin-top: 40px;
-      font-size: 20px;
-      color: #38bdf8;
     }
 
-    p {
-      color: #94a3b8;
+    section {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
     }
 
-    .card {
+    .project {
       background: #1e293b;
       padding: 20px;
       border-radius: 10px;
-      margin-top: 15px;
-      transition: 0.2s;
-    }
-
-    .card:hover {
-      transform: translateY(-3px);
+      margin-top: 20px;
     }
 
     a {
-      color: #38bdf8;
+      color: #22c55e;
       text-decoration: none;
-    }
-
-    .tag {
-      display: inline-block;
-      background: #334155;
-      padding: 4px 10px;
-      margin: 5px 5px 0 0;
-      border-radius: 6px;
-      font-size: 12px;
     }
   </style>
 </head>
 
 <body>
 
+<header>
   <h1>Trần Bảo Nguyên</h1>
   <p>AI Student | Data Science Enthusiast</p>
+</header>
 
-  <h2>About</h2>
+<section>
+  <h2>About Me</h2>
   <p>
-    I am a second-year AI student at FPT University.
-    I focus on Data Analysis and Machine Learning.
+    I am a second-year student majoring in Artificial Intelligence at FPT University.
+    I am passionate about data analysis and machine learning, and I enjoy building
+    projects that solve real-world problems using data.
   </p>
+</section>
 
+<section>
   <h2>Skills</h2>
-  <div>
-    <span class="tag">Python</span>
-    <span class="tag">Pandas</span>
-    <span class="tag">NumPy</span>
-    <span class="tag">Data Analysis</span>
-  </div>
+  <p>
+    Python, Pandas, NumPy, Scikit-learn, Data Analysis, Machine Learning Basics
+  </p>
+</section>
 
-  <h2>Project</h2>
+<section>
+  <h2>Projects</h2>
 
-  <div class="card">
+  <div class="project">
     <h3>US Traffic Accident Severity & Risk Analytics</h3>
-    <p>
-      Analyzed large-scale traffic accident dataset to identify key factors affecting accident severity.
-    </p>
-
-    <div>
-      <span class="tag">Python</span>
-      <span class="tag">EDA</span>
-      <span class="tag">Visualization</span>
-    </div>
 
     <p>
-      <a href="#">View Project →</a>
+      Analyzed traffic accident data in the United States to identify key factors
+      affecting accident severity and predict high-risk conditions.
     </p>
+
+    <ul>
+      <li><strong>Dataset:</strong> US Traffic Accident Dataset (Kaggle)</li>
+      <li><strong>Tech:</strong> Python, Pandas, NumPy, Scikit-learn, Matplotlib</li>
+      <li><strong>Tasks:</strong>
+        <ul>
+          <li>Data cleaning and preprocessing</li>
+          <li>Exploratory Data Analysis (EDA)</li>
+          <li>Feature engineering</li>
+          <li>Built classification model</li>
+        </ul>
+      </li>
+      <li><strong>Result:</strong> Built a model to predict accident severity</li>
+    </ul>
+
+    <a href="https://github.com/yourusername/project-link" target="_blank">
+      🔗 View on GitHub
+    </a>
   </div>
 
+</section>
+
+<section>
   <h2>Contact</h2>
   <p>Email: your-email@gmail.com</p>
-  <p><a href="https://github.com/">GitHub</a></p>
+  <p>
+    GitHub: 
+    <a href="https://github.com/yourusername">
+      https://github.com/yourusername
+    </a>
+  </p>
+</section>
 
 </body>
 </html>
