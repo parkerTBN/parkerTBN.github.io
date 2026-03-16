@@ -1,119 +1,1056 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>Nguyen's Portfolio</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Portfolio — Data & AI Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #050a0f;
+    --bg2: #0b1420;
+    --bg3: #0f1e2e;
+    --cyan: #00e5c8;
+    --cyan2: #00b5a0;
+    --amber: #ffb830;
+    --text: #e2eaf4;
+    --muted: #7a93ae;
+    --border: rgba(0,229,200,0.15);
+    --card: rgba(11,20,32,0.85);
+    --font-display: 'Syne', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+  }
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: #0f172a;
-      color: #e2e8f0;
-    }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    header {
-      text-align: center;
-      padding: 60px 20px;
-    }
+  html { scroll-behavior: smooth; }
 
-    h1 {
-      font-size: 40px;
-      margin-bottom: 10px;
-    }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
 
-    h2 {
-      border-bottom: 2px solid #22c55e;
-      display: inline-block;
-      margin-top: 40px;
-    }
+  /* ── CANVAS ── */
+  #canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.35;
+  }
 
-    section {
-      max-width: 900px;
-      margin: auto;
-      padding: 20px;
-    }
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(5,10,15,0.7);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
 
-    .project {
-      background: #1e293b;
-      padding: 20px;
-      border-radius: 10px;
-      margin-top: 20px;
-    }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--cyan);
+    letter-spacing: 0.04em;
+    text-decoration: none;
+  }
 
-    a {
-      color: #22c55e;
-      text-decoration: none;
-    }
-  </style>
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--cyan); }
+
+  /* ── SECTIONS ── */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 7rem 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 5rem;
+    max-width: 100%;
+    padding-left: max(4rem, calc((100vw - 1100px)/2 + 2rem));
+    padding-right: max(4rem, calc((100vw - 1100px)/2 + 2rem));
+  }
+
+  .hero-tag {
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 32px; height: 1px;
+    background: var(--cyan);
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+
+  .gradient-text {
+    background: linear-gradient(120deg, var(--cyan) 0%, var(--amber) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 520px;
+    margin-bottom: 3rem;
+    line-height: 1.8;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.22s;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: var(--cyan);
+    color: var(--bg);
+    border: 1px solid var(--cyan);
+    font-weight: 700;
+  }
+
+  .btn-primary:hover {
+    background: transparent;
+    color: var(--cyan);
+    box-shadow: 0 0 24px rgba(0,229,200,0.25);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid rgba(122,147,174,0.3);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--cyan);
+    color: var(--cyan);
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    margin-top: 5rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--cyan);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 0.3rem;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-tag {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-tag::before {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 1px;
+    background: var(--cyan);
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 3.5rem;
+    line-height: 1.15;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .about-text p {
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+    font-size: 13px;
+    line-height: 1.9;
+  }
+
+  .about-text p span { color: var(--text); }
+
+  .about-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2.5rem;
+    backdrop-filter: blur(12px);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-card::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(0,229,200,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .about-card-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .about-card-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .about-icon {
+    width: 36px; height: 36px;
+    background: rgba(0,229,200,0.08);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .about-card-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.2rem;
+  }
+
+  .about-card-value {
+    font-size: 13px;
+    color: var(--text);
+  }
+
+  /* ── SKILLS ── */
+  #skills { background: none; }
+
+  .skills-layout {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .skill-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    backdrop-filter: blur(12px);
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-card:hover {
+    border-color: rgba(0,229,200,0.4);
+    transform: translateY(-3px);
+  }
+
+  .skill-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--cyan), transparent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .skill-card:hover::after { opacity: 1; }
+
+  .skill-category {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 1rem;
+  }
+
+  .skill-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--text);
+  }
+
+  .skill-bars { display: flex; flex-direction: column; gap: 0.75rem; }
+
+  .skill-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .skill-name {
+    font-size: 11px;
+    color: var(--muted);
+    min-width: 80px;
+    flex-shrink: 0;
+  }
+
+  .skill-track {
+    flex: 1;
+    height: 3px;
+    background: rgba(122,147,174,0.15);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .skill-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--cyan), var(--cyan2));
+    border-radius: 2px;
+    width: 0;
+    transition: width 1.2s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+
+  .skill-pct {
+    font-size: 10px;
+    color: var(--muted);
+    min-width: 28px;
+    text-align: right;
+  }
+
+  /* ── PROJECTS ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem;
+  }
+
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    backdrop-filter: blur(12px);
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-card.featured {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+    border-color: rgba(0,229,200,0.3);
+  }
+
+  .project-card:hover {
+    border-color: rgba(0,229,200,0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+
+  .project-glow {
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(255,184,48,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .tag {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    background: rgba(0,229,200,0.08);
+    border: 1px solid rgba(0,229,200,0.2);
+    color: var(--cyan);
+  }
+
+  .tag.amber {
+    background: rgba(255,184,48,0.08);
+    border-color: rgba(255,184,48,0.2);
+    color: var(--amber);
+  }
+
+  .project-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+  }
+
+  .project-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.8;
+    flex: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-metrics {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .metric { text-align: left; }
+
+  .metric-val {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--cyan);
+    line-height: 1;
+  }
+
+  .metric-key {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 0.2rem;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: auto;
+  }
+
+  .link-btn {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: color 0.2s;
+  }
+
+  .link-btn:hover { color: var(--cyan); }
+
+  /* ── CONTACT ── */
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .contact-info h3 {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+  }
+
+  .contact-info p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.9;
+    margin-bottom: 2rem;
+  }
+
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 12px;
+    transition: color 0.2s;
+    padding: 1rem 1.25rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    backdrop-filter: blur(8px);
+    transition: all 0.2s;
+  }
+
+  .contact-link:hover {
+    border-color: rgba(0,229,200,0.4);
+    color: var(--cyan);
+    transform: translateX(4px);
+  }
+
+  .contact-icon {
+    width: 32px; height: 32px;
+    background: rgba(0,229,200,0.08);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .form-group { margin-bottom: 1.25rem; }
+
+  .form-label {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .form-input,
+  .form-textarea {
+    width: 100%;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+    backdrop-filter: blur(8px);
+  }
+
+  .form-input:focus,
+  .form-textarea:focus {
+    border-color: rgba(0,229,200,0.5);
+  }
+
+  .form-textarea { height: 130px; resize: vertical; }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  footer span { color: var(--cyan); }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: rgba(0,229,200,0.3); border-radius: 2px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 2rem; }
+    .nav-links { gap: 1.5rem; }
+    section { padding: 5rem 2rem; }
+    #hero { padding-left: 2rem; padding-right: 2rem; }
+    .about-grid, .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
+    .skills-layout { grid-template-columns: 1fr 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card.featured { grid-column: span 1; display: flex; }
+    .hero-stats { gap: 2rem; }
+  }
+
+  @media (max-width: 600px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .skills-layout { grid-template-columns: 1fr; }
+    h1 { font-size: 2.8rem; }
+  }
+</style>
 </head>
-
 <body>
 
-<header>
-  <h1>Trần Bảo Nguyên</h1>
-  <p>AI Student | Data Science Enthusiast</p>
-</header>
+<canvas id="canvas"></canvas>
 
-<section>
-  <h2>About Me</h2>
-  <p>
-    I am a second-year student majoring in Artificial Intelligence at FPT University.
-    I am passionate about data analysis and machine learning, and I enjoy building
-    projects that solve real-world problems using data.
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero">YourName<span style="color:var(--amber)">.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">about</a></li>
+    <li><a href="#skills">skills</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-tag">available for opportunities</div>
+  <h1>Data &amp; AI<br /><span class="gradient-text">Engineer</span></h1>
+  <p class="hero-sub">
+    Xây dựng hệ thống AI thông minh và khai phá insight từ dữ liệu phức tạp.
+    Chuyên về Machine Learning, Deep Learning và Data Engineering.
   </p>
-</section>
-
-<section>
-  <h2>Skills</h2>
-  <p>
-    Python, Pandas, NumPy, Scikit-learn, Data Analysis, Machine Learning Basics
-  </p>
-</section>
-
-<section>
-  <h2>Projects</h2>
-
-  <div class="project">
-    <h3>US Traffic Accident Severity & Risk Analytics</h3>
-
-    <p>
-      Analyzed traffic accident data in the United States to identify key factors
-      affecting accident severity and predict high-risk conditions.
-    </p>
-
-    <ul>
-      <li><strong>Dataset:</strong> US Traffic Accident Dataset (Kaggle)</li>
-      <li><strong>Tech:</strong> Python, Pandas, NumPy, Scikit-learn, Matplotlib</li>
-      <li><strong>Tasks:</strong>
-        <ul>
-          <li>Data cleaning and preprocessing</li>
-          <li>Exploratory Data Analysis (EDA)</li>
-          <li>Feature engineering</li>
-          <li>Built classification model</li>
-        </ul>
-      </li>
-      <li><strong>Result:</strong> Built a model to predict accident severity</li>
-    </ul>
-
-    <a href="https://github.com/yourusername/project-link" target="_blank">
-      🔗 View on GitHub
-    </a>
+  <div class="hero-cta">
+    <a class="btn btn-primary" href="#projects">View Projects</a>
+    <a class="btn btn-outline" href="#contact">Get In Touch</a>
   </div>
-
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num">3+</div>
+      <div class="stat-label">Năm kinh nghiệm</div>
+    </div>
+    <div>
+      <div class="stat-num">20+</div>
+      <div class="stat-label">Dự án hoàn thành</div>
+    </div>
+    <div>
+      <div class="stat-num">15+</div>
+      <div class="stat-label">Mô hình production</div>
+    </div>
+  </div>
 </section>
 
-<section>
-  <h2>Contact</h2>
-  <p>Email: your-email@gmail.com</p>
-  <p>
-    GitHub: 
-    <a href="https://github.com/yourusername">
-      https://github.com/yourusername
-    </a>
-  </p>
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-tag">01 — About</div>
+  <h2>Xin chào, tôi là<br /><span class="gradient-text">Your Name</span></h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        Tôi là một <span>Data & AI Engineer</span> đam mê việc biến dữ liệu thành những
+        sản phẩm có giá trị thực tế. Với nền tảng vững chắc về toán học và lập trình,
+        tôi tập trung vào việc xây dựng các hệ thống AI có thể mở rộng quy mô.
+      </p>
+      <p>
+        Kinh nghiệm làm việc với các bài toán từ <span>Natural Language Processing</span>,
+        <span>Computer Vision</span> đến <span>Time Series Forecasting</span> và hệ thống
+        MLOps trong môi trường production.
+      </p>
+      <p>
+        Tôi tin rằng AI tốt nhất là AI được xây dựng có trách nhiệm, minh bạch
+        và phục vụ con người một cách thực sự hiệu quả.
+      </p>
+      <div style="margin-top:2rem;">
+        <a class="btn btn-outline" href="#" style="display:inline-flex;">
+          Download CV →
+        </a>
+      </div>
+    </div>
+    <div class="about-card">
+      <div class="about-card-item">
+        <div class="about-icon">📍</div>
+        <div>
+          <div class="about-card-label">Vị trí</div>
+          <div class="about-card-value">Hồ Chí Minh, Việt Nam</div>
+        </div>
+      </div>
+      <div class="about-card-item">
+        <div class="about-icon">🎓</div>
+        <div>
+          <div class="about-card-label">Học vấn</div>
+          <div class="about-card-value">Kỹ sư Khoa học Máy tính<br/>Trường Đại học XYZ</div>
+        </div>
+      </div>
+      <div class="about-card-item">
+        <div class="about-icon">💼</div>
+        <div>
+          <div class="about-card-label">Vị trí hiện tại</div>
+          <div class="about-card-value">Senior Data Scientist<br/>tại Company ABC</div>
+        </div>
+      </div>
+      <div class="about-card-item">
+        <div class="about-icon">🌐</div>
+        <div>
+          <div class="about-card-label">Ngôn ngữ</div>
+          <div class="about-card-value">Tiếng Việt, English</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-tag">02 — Skills</div>
+  <h2>Công nghệ<br />&amp; <span class="gradient-text">Kỹ năng</span></h2>
+  <div class="skills-layout">
+
+    <div class="skill-card">
+      <div class="skill-category">Machine Learning</div>
+      <div class="skill-title">ML &amp; Deep Learning</div>
+      <div class="skill-bars">
+        <div class="skill-bar-row"><span class="skill-name">PyTorch</span><div class="skill-track"><div class="skill-fill" data-w="90"></div></div><span class="skill-pct">90%</span></div>
+        <div class="skill-bar-row"><span class="skill-name">TensorFlow</span><div class="skill-track"><div class="skill-fill" data-w="80"></div></div><span class="skill-pct">80%</span></div>
+        <div class="skill-bar-row"><span class="skill-name">Scikit-learn</span><div class="skill-track"><div class="skill-fill" data-w="95"></div></div><span class="skill-pct">95%</span></div>
+        <div class="skill-bar-row"><span class="skill-name">HuggingFace</span><div class="skill-track"><div class="skill-fill" data-w="85"></div></div><span class="skill-pct">85%</span></div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-category">Data Engineering</div>
+      <div class="skill-title">Data Pipeline</div>
+      <div class="skill-bars">
+        <div class="skill-bar-row"><span class="skill-name">Python</span><div class="skill-track"><div class="skill-fill" data-w="95"></div></div><span class="skill-pct">95%</span></div>
+        <div class="skill-bar-row"><span class="skill-name">Spark</span><div class="skill-track"><div class="skill-fill" data-w="75"></div></div><span class="skill-pct">75%</span></div>
+        <div class="skill-bar-row"><span class="skill-name">Airflow</span><div class="skill-track"><div class="skill-fill" data-w="80"></div></div><span class="skill-pct">80%</span></div>
+        <div class="skill-bar-row"><span class="skill-name">SQL</span><div class="skill-track"><div class="skill-fill" data-w="90"></div></div><span class="skill-pct">90%</span></div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-category">MLOps &amp; Cloud</div>
+      <div class="skill-title">Deploy &amp; Scale</div>
+      <div class="skill-bars">
+        <div class="skill-bar-row"><span class="skill-name">Docker</span><div class="skill-track"><div class="skill-fill" data-w="88"></div></div><span class="skill-pct">88%</span></div>
+        <div class="skill-bar-row"><span class="skill-name">Kubernetes</span><div class="skill-track"><div class="skill-fill" data-w="70"></div></div><span class="skill-pct">70%</span></div>
+        <div class="skill-bar-row"><span class="skill-name">MLflow</span><div class="skill-track"><div class="skill-fill" data-w="85"></div></div><span class="skill-pct">85%</span></div>
+        <div class="skill-bar-row"><span class="skill-name">AWS / GCP</span><div class="skill-track"><div class="skill-fill" data-w="78"></div></div><span class="skill-pct">78%</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-tag">03 — Projects</div>
+  <h2>Dự án<br /><span class="gradient-text">nổi bật</span></h2>
+  <div class="projects-grid">
+
+    <!-- Featured -->
+    <div class="project-card featured">
+      <div>
+        <div class="project-glow"></div>
+        <div class="project-tags">
+          <span class="tag">LLM</span>
+          <span class="tag">RAG</span>
+          <span class="tag amber">Featured</span>
+        </div>
+        <div class="project-title">AI Customer Support System</div>
+        <p class="project-desc">
+          Hệ thống hỗ trợ khách hàng tự động sử dụng Large Language Models kết hợp
+          RAG (Retrieval-Augmented Generation). Tích hợp với knowledge base nội bộ
+          và xử lý hàng nghìn queries mỗi ngày với độ chính xác cao.
+        </p>
+        <div class="project-links">
+          <a class="link-btn" href="#">↗ GitHub</a>
+          <a class="link-btn" href="#">↗ Demo</a>
+        </div>
+      </div>
+      <div class="project-metrics">
+        <div class="metric">
+          <div class="metric-val">94%</div>
+          <div class="metric-key">Accuracy</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">10k+</div>
+          <div class="metric-key">Daily queries</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">60%</div>
+          <div class="metric-key">Cost saved</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-tags">
+        <span class="tag">Computer Vision</span>
+        <span class="tag">YOLOv8</span>
+      </div>
+      <div class="project-title">Real-time Object Detection</div>
+      <p class="project-desc">
+        Pipeline phát hiện đối tượng theo thời gian thực cho hệ thống camera
+        giám sát. Tối ưu để chạy trên edge devices với latency cực thấp.
+      </p>
+      <div class="project-links">
+        <a class="link-btn" href="#">↗ GitHub</a>
+        <a class="link-btn" href="#">↗ Paper</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-tags">
+        <span class="tag">Time Series</span>
+        <span class="tag">Forecasting</span>
+      </div>
+      <div class="project-title">Sales Forecasting Engine</div>
+      <p class="project-desc">
+        Mô hình dự báo doanh số cho chuỗi bán lẻ sử dụng kết hợp LSTM và
+        Transformer. Giảm 35% sai số dự báo so với mô hình baseline.
+      </p>
+      <div class="project-links">
+        <a class="link-btn" href="#">↗ GitHub</a>
+        <a class="link-btn" href="#">↗ Demo</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-tags">
+        <span class="tag">NLP</span>
+        <span class="tag">Vietnamese</span>
+      </div>
+      <div class="project-title">Vietnamese Sentiment Analysis</div>
+      <p class="project-desc">
+        Mô hình phân tích cảm xúc cho tiếng Việt fine-tuned từ PhoBERT.
+        Đạt F1-score 92% trên tập test, được triển khai cho 5 doanh nghiệp.
+      </p>
+      <div class="project-links">
+        <a class="link-btn" href="#">↗ GitHub</a>
+        <a class="link-btn" href="#">↗ HuggingFace</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-tag">04 — Contact</div>
+  <h2>Liên hệ<br /><span class="gradient-text">với tôi</span></h2>
+  <div class="contact-layout">
+    <div class="contact-info">
+      <h3>Cùng xây dựng<br/>điều gì đó tuyệt vời.</h3>
+      <p>
+        Tôi luôn sẵn lòng thảo luận về các dự án AI/ML thú vị,
+        cơ hội hợp tác, hoặc chỉ đơn giản là kết nối với những
+        người cùng đam mê công nghệ.
+      </p>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:your@email.com">
+          <div class="contact-icon">✉</div>
+          <div>
+            <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:2px">Email</div>
+            <div style="font-size:13px;color:var(--text)">your@email.com</div>
+          </div>
+        </a>
+        <a class="contact-link" href="https://linkedin.com/in/yourprofile" target="_blank">
+          <div class="contact-icon">in</div>
+          <div>
+            <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:2px">LinkedIn</div>
+            <div style="font-size:13px;color:var(--text)">linkedin.com/in/yourprofile</div>
+          </div>
+        </a>
+        <a class="contact-link" href="https://github.com/yourusername" target="_blank">
+          <div class="contact-icon">gh</div>
+          <div>
+            <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:2px">GitHub</div>
+            <div style="font-size:13px;color:var(--text)">github.com/yourusername</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <form onsubmit="return false;">
+      <div class="form-group">
+        <label class="form-label">Họ và tên</label>
+        <input class="form-input" type="text" placeholder="Nguyễn Văn A" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" placeholder="hello@example.com" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Tin nhắn</label>
+        <textarea class="form-textarea" placeholder="Xin chào! Tôi muốn thảo luận về..."></textarea>
+      </div>
+      <button class="btn btn-primary" type="submit" style="width:100%;justify-content:center;">
+        Gửi tin nhắn →
+      </button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <p>Designed &amp; built by <span>Your Name</span> — 2025 · Built with ♥ &amp; <span>data</span></p>
+</footer>
+
+<script>
+/* ── NEURAL NETWORK CANVAS ── */
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+let W, H, nodes = [], animId;
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+
+function initNodes(n) {
+  nodes = [];
+  for (let i = 0; i < n; i++) {
+    nodes.push({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: (Math.random() - 0.5) * 0.4,
+      r: Math.random() * 2 + 1
+    });
+  }
+}
+
+function drawFrame() {
+  ctx.clearRect(0, 0, W, H);
+  const maxDist = 130;
+
+  for (let i = 0; i < nodes.length; i++) {
+    const a = nodes[i];
+    a.x += a.vx; a.y += a.vy;
+    if (a.x < 0 || a.x > W) a.vx *= -1;
+    if (a.y < 0 || a.y > H) a.vy *= -1;
+
+    for (let j = i + 1; j < nodes.length; j++) {
+      const b = nodes[j];
+      const dx = a.x - b.x, dy = a.y - b.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < maxDist) {
+        const alpha = (1 - dist / maxDist) * 0.5;
+        ctx.strokeStyle = `rgba(0,229,200,${alpha})`;
+        ctx.lineWidth = 0.6;
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.stroke();
+      }
+    }
+
+    ctx.fillStyle = 'rgba(0,229,200,0.6)';
+    ctx.beginPath();
+    ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  animId = requestAnimationFrame(drawFrame);
+}
+
+resize();
+initNodes(60);
+drawFrame();
+window.addEventListener('resize', () => { resize(); initNodes(60); });
+
+/* ── SKILL BAR ANIMATION (IntersectionObserver) ── */
+const fills = document.querySelectorAll('.skill-fill');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.width = e.target.dataset.w + '%';
+    }
+  });
+}, { threshold: 0.2 });
+
+fills.forEach(f => io.observe(f));
+
+/* ── SCROLL FADE-IN ── */
+const sections = document.querySelectorAll('section');
+sections.forEach(s => {
+  s.style.opacity = '0';
+  s.style.transform = 'translateY(24px)';
+  s.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+});
+
+const fadeIn = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.08 });
+
+sections.forEach(s => fadeIn.observe(s));
+</script>
 </body>
 </html>
